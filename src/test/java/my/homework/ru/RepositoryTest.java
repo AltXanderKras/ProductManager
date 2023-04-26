@@ -34,7 +34,7 @@ class RepositoryTest {
     }
 
     @Test
-    public void removeById() {
+    public void removeExistingId() {
 
         Repository repository = new Repository();
         Book book1 = new Book(1, "Sherlock Holmes 1", 300, "Doyle");
@@ -54,5 +54,22 @@ class RepositoryTest {
         Assertions.assertArrayEquals(expected, actual);
 
 
+    }
+
+    @Test
+    public void removeNotExistingId() {
+        Repository repository = new Repository();
+
+        Book book1 = new Book(1, "Sherlock Holmes 1", 300, "Doyle");
+        Book book2 = new Book(2, "Twilight", 400, "Meyer");
+        Book book3 = new Book(3, "Sherlock Holmes 2", 200, "Doyle");
+        repository.add(book1);
+        repository.add(book2);
+        repository.add(book3);
+
+        int idToRemove = 4;
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repository.removeById(idToRemove);
+        });
     }
 }
