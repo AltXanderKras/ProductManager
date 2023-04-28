@@ -34,6 +34,23 @@ public class ManagerTest {
     }
 
     @Test
+    public void testSingleProduct() {
+        Repository repository = new Repository();
+        Manager manager = new Manager(repository);
+        Book book1 = new Book(1, "Sherlock Holmes 1", 300, "Doyle");
+        Book book2 = new Book(2, "Twilight", 400, "Meyer");
+        Book book3 = new Book(3, "Sherlock Holmes 2", 200, "Doyle");
+        Smartphone smartphone = new Smartphone(4, "iphone 10", 50_000, "Apple");
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+        manager.add(smartphone);
+        Product[] actual = manager.searchBy("Twilight");
+        Product[] expected = {book2};
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
     public void testIfNoMatches() {
         Repository repository = new Repository();
         Manager manager = new Manager(repository);
